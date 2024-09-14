@@ -35,7 +35,7 @@ const Footer = () => {
   return (
     <div className="bg-base-200">
       <Container>
-        <footer className="footer text-base text-base-content p-10">
+        <footer className="footer px-0 text-base text-base-content p-10">
           <aside>
             {/* logo */}
             <SiteLogo />
@@ -47,12 +47,12 @@ const Footer = () => {
             </p>
           </aside>
 
-          {navs?.map((nav) => (
-            <nav>
+          {navs?.map((nav, idx) => (
+            <nav key={idx}>
               <h6 className="footer-title">{nav[0].title}</h6>
 
               {nav[1]?.map(({ path, label }) => (
-                <Link to={path} className="link link-hover">
+                <Link key={label} to={path} className="link link-hover">
                   {label}
                 </Link>
               ))}

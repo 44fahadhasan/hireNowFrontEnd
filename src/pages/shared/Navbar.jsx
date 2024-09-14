@@ -62,7 +62,7 @@ const Navbar = () => {
         <div className="hidden md:block text-center">
           <ul className="flex gap-7 font-medium text-lg ">
             {lists?.map(({ path, label }) => (
-              <li>
+              <li key={label}>
                 <NavLink
                   to={path}
                   className={({ isActive }) =>
@@ -100,7 +100,7 @@ const Navbar = () => {
       >
         <ul className="flex flex-col gap-2 text-center">
           {lists?.map(({ path, label }) => (
-            <li>
+            <li key={label}>
               <NavLink
                 onClick={() => setToggleMenuIcon(!toggleMenuIcon)}
                 to={path}
