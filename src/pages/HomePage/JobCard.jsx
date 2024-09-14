@@ -53,7 +53,7 @@ const JobCard = () => {
             </div>
 
             {/* view button */}
-            <Link to="">
+            <Link to="Job-Details">
               <span className="sm:ml-2 mr-3 rounded-full bg-primary px-2 py-0.5 text-white">
                 View
               </span>
