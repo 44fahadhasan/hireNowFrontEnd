@@ -1,34 +1,49 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { CiLink } from "react-icons/ci";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdEmail, MdOutlineDriveFileRenameOutline } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Container from "../components/Container";
 import Heading from "../components/Heading";
 import InputFiled from "../components/InputFiled";
+import useAuth from "../hooks/useAuth";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const RegisterPage = () => {
   const [accountType, setAccountType] = useState("jobSeeker");
 
+  const { createUserEmailAndPassword, updateUserProfile } = useAuth();
+
+  const axiosPublic = useAxiosPublic();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   // const handle singup
-  const handleSingup = async (event) => {
+  const handleSingup = (event) => {
     event.preventDefault();
     const input = event.target;
 
     if (accountType === "jobSeeker") {
       const fullName = input.fullName.value;
       const email = input.email.value;
+      const imageUrl = input.imageUrl.value;
       const password = input.password.value;
       const role = "jobSeeker";
 
-      console.log({
+      const data = {
         fullName,
         email,
+        imageUrl,
         password,
         role,
-      });
+      };
+
+      handleCreateNewUser(fullName, email, password, imageUrl, input, data);
     }
 
     if (accountType === "employer") {
@@ -40,7 +55,7 @@ const RegisterPage = () => {
       const logoUrl = input.logoUrl.value;
       const role = "employer";
 
-      console.log({
+      const data = {
         companyName,
         email,
         password,
@@ -48,8 +63,49 @@ const RegisterPage = () => {
         address,
         logoUrl,
         role,
-      });
+      };
+
+      handleCreateNewUser(companyName, email, password, logoUrl, input, data);
     }
+  };
+
+  // create a new user with email & password
+  const handleCreateNewUser = (
+    name,
+    email,
+    password,
+    imageUrl,
+    input,
+    data
+  ) => {
+    createUserEmailAndPassword(email, password)
+      .then(() => {
+        // user profile info
+        updateUserProfile(name, imageUrl).then(() => {
+          // Profile updated
+
+          // new user data save to database
+          handleUserDataSave(data);
+
+          toast.success("Created an new account successfully");
+
+          navigate(from, { replace: true });
+
+          // clear input filed
+          input.reset();
+        });
+      })
+      .catch((error) => {
+        toast.error(error?.message);
+      });
+  };
+
+  // new user data save to database
+  const handleUserDataSave = (userData) => {
+    axiosPublic
+      .post("/auth/register", userData)
+      .then((res) => {})
+      .catch((err) => {});
   };
 
   return (
@@ -95,6 +151,16 @@ const RegisterPage = () => {
               required={true}
               placeholder={"Your Eamil"}
               icon={<MdEmail />}
+            />
+
+            {/* company website url */}
+            <InputFiled
+              label={"Image Url"}
+              name={"imageUrl"}
+              type={"url"}
+              required={true}
+              placeholder={"Your Image Url"}
+              icon={<CiLink />}
             />
 
             {/* password */}

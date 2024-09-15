@@ -1,18 +1,31 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link, NavLink } from "react-router-dom";
 import Button from "../../components/Button";
 import SiteLogo from "../../components/SiteLogo";
+import useAuth from "../../hooks/useAuth";
 
 const lists = [{ path: "/", label: "Home" }];
 
 const Navbar = () => {
   const [toggleMenuIcon, setToggleMenuIcon] = useState(true);
 
-  const user = !true;
+  const { user, userLogOut } = useAuth();
 
   const handelToggleMenu = () => {
     setToggleMenuIcon(!toggleMenuIcon);
+  };
+
+  // handle user logout
+  const handleLogOut = () => {
+    userLogOut()
+      .then(() => {
+        toast.success("successfully Logout");
+      })
+      .catch((error) => {
+        toast.error(error?.message);
+      });
   };
 
   const userProfile = (
