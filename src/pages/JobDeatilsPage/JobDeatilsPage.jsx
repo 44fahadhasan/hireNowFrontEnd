@@ -1,8 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { CiLink } from "react-icons/ci";
 import Button from "../../components/Button";
 import Container from "../../components/Container";
+import InputFiled from "../../components/InputFiled";
+import Tost from "../../components/Tost";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const JobDeatilsPage = () => {
+  const [disabled, setDisabled] = useState(false);
+
+  const axiosSecure = useAxiosSecure();
+
+  // handle from submit
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const input = event.target;
+
+    const resumeLink = input.resumeLink.value;
+    const coverLetter = input.coverLetter.value;
+
+    const applicationData = { resumeLink, coverLetter };
+
+    const res = await handleApplicationSubmit(applicationData);
+
+    if (res?.data?.acknowledged && res?.status) {
+      setDisabled(true);
+      toast.success("Successfully was submit");
+      // clear input filed
+      input.reset();
+    } else {
+      toast.success("Have a submission error");
+    }
+  };
+
+  // handle application data submission
+  const handleApplicationSubmit = (applicationData) => {
+    const res = axiosSecure
+      .post("/applications", applicationData)
+      .then((res) => {
+        return res;
+      });
+
+    return res;
+  };
+
   return (
     <>
       {/* content in top position */}
@@ -75,15 +117,6 @@ const JobDeatilsPage = () => {
                 </ul>
               </div>
             </div>
-
-            {/* cover letter */}
-            <div className="space-y-2">
-              <h3 className="text-xl font-semibold">Cover Letter</h3>
-              <textarea
-                className="w-full rounded-md border"
-                rows={9}
-              ></textarea>
-            </div>
           </div>
 
           {/* content left side of the middle position */}
@@ -104,8 +137,15 @@ const JobDeatilsPage = () => {
 
           {/* content bottom side of the middle position */}
           <div className="flex flex-col gap-2 lg:col-start-4 lg:gap-4 justify-center">
-            <button>
-              <Button lebel={"Apply"} />
+            <button
+              disabled={disabled}
+              onClick={() => document.getElementById("modal").showModal()}
+            >
+              {(disabled && (
+                <span className="sm:ml-2 mr-3 rounded-full bg-primary px-2 py-1 text-white">
+                  Already Applied
+                </span>
+              )) || <Button lebel={"Apply"} />}
             </button>
           </div>
         </div>
@@ -135,6 +175,64 @@ const JobDeatilsPage = () => {
             </div>
           </div>
         </div>
+
+        {/* modal start */}
+        <dialog id="modal" className="modal modal-bottom sm:modal-middle ">
+          <Tost />
+          <div className="modal-box border border-gray-300">
+            {/* modal component start */}
+            <form onSubmit={handleSubmit}>
+              <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-1">
+                <div className="relative block cursor-pointer rounded-lg  p-4 focus:outline-none">
+                  {/* remuse link */}
+                  <InputFiled
+                    label={"Resume Link"}
+                    name={"resumeLink"}
+                    type={"url"}
+                    required={true}
+                    placeholder={"Enter Your Resume Link"}
+                    icon={<CiLink />}
+                  />
+
+                  {/* cover letter input */}
+                  <div className="space-y-1 mt-3 text-base">
+                    <label className="text-sm px-1 text-base-content font-medium">
+                      Cover Letter
+                    </label>
+                    <textarea
+                      required
+                      name="coverLetter"
+                      rows={5}
+                      placeholder="Write a professional CV"
+                      className="w-full pl-10 pr-3 py-2 rounded-lg border border-[#E9E9E9] text-secondary-content outline-none focus:border-secondary bg-base-100"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10">
+                <button
+                  disabled={disabled}
+                  type="submit"
+                  className="btn btn-primary"
+                >
+                  Submit
+                </button>
+
+                {/* close button */}
+                <div className="modal-action">
+                  <form method="dialog">
+                    <button className="btn btn-primary btn-sm btn-circle  absolute right-2 top-2">
+                      ✕
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </form>
+            {/* modal component end */}
+          </div>
+        </dialog>
+        {/* modal end */}
       </Container>
     </>
   );
