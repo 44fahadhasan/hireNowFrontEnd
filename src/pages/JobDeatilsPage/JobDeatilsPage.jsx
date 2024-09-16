@@ -4,6 +4,7 @@ import { CiLink } from "react-icons/ci";
 import Button from "../../components/Button";
 import Container from "../../components/Container";
 import InputFiled from "../../components/InputFiled";
+import TextArea from "../../components/TextArea";
 import Tost from "../../components/Tost";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
@@ -195,18 +196,13 @@ const JobDeatilsPage = () => {
                   />
 
                   {/* cover letter input */}
-                  <div className="space-y-1 mt-3 text-base">
-                    <label className="text-sm px-1 text-base-content font-medium">
-                      Cover Letter
-                    </label>
-                    <textarea
-                      required
-                      name="coverLetter"
-                      rows={5}
-                      placeholder="Write a professional CV"
-                      className="w-full pl-10 pr-3 py-2 rounded-lg border border-[#E9E9E9] text-secondary-content outline-none focus:border-secondary bg-base-100"
-                    />
-                  </div>
+                  <TextArea
+                    label={"Cover Letter"}
+                    name={"coverLetter"}
+                    required={true}
+                    placeholder={"Write a professional CV"}
+                    rows={5}
+                  />
                 </div>
               </div>
 

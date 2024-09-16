@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
 import BuyPost from "../pages/employersPages/BuyPost";
-import JobPublish from "../pages/employersPages/JobPublish";
+import JobPost from "../pages/employersPages/JobPost";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage/HomePage";
 import JobDeatilsPage from "../pages/JobDeatilsPage/JobDeatilsPage";
@@ -37,11 +37,11 @@ const routes = createBrowserRouter([
 
       // secure & employer routes
       {
-        path: "Publish-Job",
+        path: "Job-Post",
         element: (
           <SecureRoute>
             <EmployerRoute>
-              <JobPublish />
+              <JobPost />
             </EmployerRoute>
           </SecureRoute>
         ),

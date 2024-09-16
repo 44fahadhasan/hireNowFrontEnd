@@ -12,7 +12,7 @@ const publicLists = [{ path: "/", label: "Home" }];
 const jobSeekerLists = [{ path: "/My-Applications", label: "My Applications" }];
 
 const employerLists = [
-  { path: "/Publish-Job", label: "Publish Job" },
+  { path: "/Job-Post", label: "Job Post" },
   { path: "/Buy-Post", label: "Buy Post" },
 ];
 

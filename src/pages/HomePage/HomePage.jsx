@@ -20,7 +20,12 @@ const HomePage = () => {
   return (
     <Container>
       <div className="mt-20">
-        <Content />
+        <Content
+          title={"what are you looking for job's?"}
+          content={
+            "Explore career opportunities that align with your aspirations."
+          }
+        />
         <SearchBox handleInputValue={handleInputValue} />
       </div>
 

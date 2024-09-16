@@ -16,7 +16,9 @@ const InputFiled = ({
 
   return (
     <div>
-      <label className="text-[#444] text-sm mb-2 block">{label}</label>
+      <label className="text-base-content text-sm mb-2 block px-1 font-medium">
+        {label}:
+      </label>
       <div className="relative flex items-center">
         <input
           disabled={disabled}
