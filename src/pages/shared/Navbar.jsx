@@ -5,13 +5,19 @@ import { Link, NavLink } from "react-router-dom";
 import Button from "../../components/Button";
 import SiteLogo from "../../components/SiteLogo";
 import useAuth from "../../hooks/useAuth";
+import useUserProfile from "../../hooks/useUserProfile";
 
-const lists = [{ path: "/", label: "Home" }];
+const publicLists = [{ path: "/", label: "Home" }];
+
+const jobSeekerLists = [{ path: "/My-Applications", label: "My Applications" }];
+
+const employerLists = [{ path: "/Publish-Job", label: "Publish Job" }];
 
 const Navbar = () => {
   const [toggleMenuIcon, setToggleMenuIcon] = useState(true);
 
   const { user, userLogOut } = useAuth();
+  const { userProfile: useInfo } = useUserProfile();
 
   const handelToggleMenu = () => {
     setToggleMenuIcon(!toggleMenuIcon);
@@ -74,7 +80,7 @@ const Navbar = () => {
         {/* menu for large device */}
         <div className="hidden md:block text-center">
           <ul className="flex gap-7 font-medium text-lg ">
-            {lists?.map(({ path, label }) => (
+            {publicLists?.map(({ path, label }) => (
               <li key={label}>
                 <NavLink
                   to={path}
@@ -86,6 +92,40 @@ const Navbar = () => {
                 </NavLink>
               </li>
             ))}
+
+            {useInfo?.role === "jobSeeker" && (
+              <>
+                {jobSeekerLists?.map(({ path, label }) => (
+                  <li key={label}>
+                    <NavLink
+                      to={path}
+                      className={({ isActive }) =>
+                        isActive ? "text-primary" : "text-secondary"
+                      }
+                    >
+                      {label}
+                    </NavLink>
+                  </li>
+                ))}
+              </>
+            )}
+
+            {useInfo?.role === "employer" && (
+              <>
+                {employerLists?.map(({ path, label }) => (
+                  <li key={label}>
+                    <NavLink
+                      to={path}
+                      className={({ isActive }) =>
+                        isActive ? "text-primary" : "text-secondary"
+                      }
+                    >
+                      {label}
+                    </NavLink>
+                  </li>
+                ))}
+              </>
+            )}
           </ul>
         </div>
 
@@ -112,7 +152,7 @@ const Navbar = () => {
         }`}
       >
         <ul className="flex flex-col gap-2 text-center">
-          {lists?.map(({ path, label }) => (
+          {publicLists?.map(({ path, label }) => (
             <li key={label}>
               <NavLink
                 onClick={() => setToggleMenuIcon(!toggleMenuIcon)}
@@ -125,6 +165,42 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
+
+          {useInfo?.role === "jobSeeker" && (
+            <>
+              {jobSeekerLists?.map(({ path, label }) => (
+                <li key={label}>
+                  <NavLink
+                    onClick={() => setToggleMenuIcon(!toggleMenuIcon)}
+                    to={path}
+                    className={({ isActive }) =>
+                      isActive ? "text-primary" : "text-secondary"
+                    }
+                  >
+                    {label}
+                  </NavLink>
+                </li>
+              ))}
+            </>
+          )}
+
+          {useInfo?.role === "employer" && (
+            <>
+              {employerLists?.map(({ path, label }) => (
+                <li key={label}>
+                  <NavLink
+                    onClick={() => setToggleMenuIcon(!toggleMenuIcon)}
+                    to={path}
+                    className={({ isActive }) =>
+                      isActive ? "text-primary" : "text-secondary"
+                    }
+                  >
+                    {label}
+                  </NavLink>
+                </li>
+              ))}
+            </>
+          )}
         </ul>
 
         {/* login & logout button for small device */}
