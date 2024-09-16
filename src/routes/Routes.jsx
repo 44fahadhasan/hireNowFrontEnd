@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
+import BuyPost from "../pages/employersPages/BuyPost";
 import JobPublish from "../pages/employersPages/JobPublish";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage/HomePage";
@@ -41,6 +42,16 @@ const routes = createBrowserRouter([
           <SecureRoute>
             <EmployerRoute>
               <JobPublish />
+            </EmployerRoute>
+          </SecureRoute>
+        ),
+      },
+      {
+        path: "Buy-Post",
+        element: (
+          <SecureRoute>
+            <EmployerRoute>
+              <BuyPost />
             </EmployerRoute>
           </SecureRoute>
         ),
