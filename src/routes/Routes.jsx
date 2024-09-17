@@ -31,8 +31,11 @@ const routes = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: "Job-Details",
+        path: "Job-Details/:id",
         element: <JobDeatilsPage />,
+        loader: ({ params }) => {
+          return fetch(`${import.meta.env.VITE_API_URL}/jobs/${params?.id}`);
+        },
       },
 
       // secure & employer routes

@@ -6,10 +6,13 @@ import Content from "../../components/Content";
 import InputFiled from "../../components/InputFiled";
 import TextArea from "../../components/TextArea";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useUserProfile from "../../hooks/useUserProfile";
 
 const JobPost = () => {
   const [descriptions, setDescriptions] = useState([]);
   const [requirements, setRequirements] = useState([]);
+
+  const { userProfile } = useUserProfile();
 
   const axiosSecure = useAxiosSecure();
 
@@ -50,16 +53,17 @@ const JobPost = () => {
 
     const title = input.title.value;
     const salary = input.salary.value;
-    const lastApplyDate = input.lastApplyDate.value;
+    const applicationDeadline = input.applicationDeadline.value;
     const location = input.location.value;
 
     const jobData = {
       title,
       salary,
-      lastApplyDate,
+      applicationDeadline,
       location,
       descriptions,
       requirements,
+      profile: userProfile,
     };
 
     const res = await handleJobPost(jobData);
@@ -152,7 +156,7 @@ const JobPost = () => {
           <form onSubmit={handleFromSubmit} className="space-y-4">
             {/* job title */}
             <InputFiled
-              label={"Title"}
+              label={"Title:"}
               name={"title"}
               type={"text"}
               required={true}
@@ -163,7 +167,7 @@ const JobPost = () => {
             <div className="md:flex gap-5 space-y-4 md:space-y-0">
               <div className="text-base w-full">
                 <InputFiled
-                  label={"Salary "}
+                  label={"Salary:"}
                   name={"salary"}
                   type={"number"}
                   required={true}
@@ -173,8 +177,8 @@ const JobPost = () => {
 
               <div className="space-y-1 text-base w-full">
                 <InputFiled
-                  label={"Last Apply Date"}
-                  name={"lastApplyDate"}
+                  label={"Application Deadline:"}
+                  name={"applicationDeadline"}
                   type={"date"}
                   required={true}
                 />
@@ -199,7 +203,7 @@ const JobPost = () => {
 
             <div className="flex justify-center pt-5">
               <button type="submit">
-                <Button lebel={" Post Now"} />
+                <Button lebel={"Post Now"} />
               </button>
             </div>
           </form>

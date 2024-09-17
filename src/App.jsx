@@ -15,7 +15,6 @@ const App = () => {
           <Tost />
         </AuthProvider>
       </QueryClientProvider>
-      s
     </>
   );
 };

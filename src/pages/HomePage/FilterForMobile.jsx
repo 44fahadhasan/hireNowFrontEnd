@@ -9,6 +9,7 @@ const FilterForMobile = ({
   setRange,
   companys,
   setCompanys,
+  companyNames,
 }) => {
   return (
     <div>
@@ -47,6 +48,7 @@ const FilterForMobile = ({
               setRange={setRange}
               companys={companys}
               setCompanys={setCompanys}
+              companyNames={companyNames}
             />
           </DialogPanel>
         </div>

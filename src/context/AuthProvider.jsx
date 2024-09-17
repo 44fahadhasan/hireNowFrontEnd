@@ -62,7 +62,7 @@ const AuthProvider = ({ children }) => {
 
             setLoading(false);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {});
 
         // login end
       } else {

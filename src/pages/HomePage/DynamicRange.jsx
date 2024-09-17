@@ -10,7 +10,7 @@ const DynamicRange = ({ range, setRange }) => {
       <Slider
         range
         min={0}
-        max={100} //todo 100 load max price from database
+        max={1000} //todo 1000 load max price from database
         value={range}
         onChange={(newRange) => setRange(newRange)}
         allowCross={false}

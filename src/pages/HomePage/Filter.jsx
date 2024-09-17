@@ -6,14 +6,14 @@ import {
 import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 import DynamicRange from "./DynamicRange";
 
-const options = [
-  {
-    _id: "1",
-    label: "Company Name",
-  },
-];
-
-const Filter = ({ hide, range, setRange, companys, setCompanys }) => {
+const Filter = ({
+  hide,
+  range,
+  setRange,
+  companys,
+  setCompanys,
+  companyNames,
+}) => {
   const handleFilters = (e) => {
     const targetInput = e.target;
     const filterValue = targetInput.value;
@@ -72,29 +72,25 @@ const Filter = ({ hide, range, setRange, companys, setCompanys }) => {
         {/* filter inside view start here */}
         <DisclosurePanel className="pt-6">
           <div className="space-y-6">
-            {options?.map((option, idx) => (
+            {companyNames?.map((option) => (
               <div key={option?._id} className="flex items-center">
                 {/* input checkbox */}
                 <input
                   onChange={(e) => handleFilters(e)}
-                  defaultValue={option?.label}
+                  defaultValue={option?.companyName}
                   defaultChecked={option?.checked}
-                  id={`${option?._id}${idx}${option?.label
-                    ?.split(" ")
-                    ?.join("")}`}
-                  name={option?.label?.split(" ")?.join("")}
+                  id={option?._id}
+                  name={option?.companyName?.split(" ")?.join("")}
                   type="checkbox"
                   className="h-4 w-4 rounded accent-primary cursor-pointer"
                 />
 
                 {/* input label */}
                 <label
-                  htmlFor={`${option?._id}${idx}${option?.label
-                    ?.split(" ")
-                    ?.join("")}`}
+                  htmlFor={option?._id}
                   className="ml-3 min-w-0 flex-1 text-gray-500 cursor-pointer"
                 >
-                  {option?.label}
+                  {option?.companyName}
                 </label>
               </div>
             ))}

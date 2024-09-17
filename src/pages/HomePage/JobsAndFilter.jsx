@@ -3,6 +3,7 @@ import { FunnelIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import Loading from "../../components/Loading";
 import NotFound from "../../components/NotFound";
+import Pagination from "../../components/Pagination";
 import Filter from "./Filter";
 import FilterForMobile from "./FilterForMobile";
 import JobCard from "./JobCard";
@@ -13,8 +14,6 @@ const sortOptions = [
   { label: "On-Site" },
 ];
 
-const jobs = [1, 2, 3, 4];
-
 const JobsAndFilter = ({
   setSort,
   sort,
@@ -23,6 +22,12 @@ const JobsAndFilter = ({
   setRange,
   companys,
   setCompanys,
+  jobs,
+  totalJobsNumber,
+  parPageJob,
+  activePageNumber,
+  setActivePageNumber,
+  companyNames,
 }) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
@@ -37,6 +42,7 @@ const JobsAndFilter = ({
         setRange={setRange}
         companys={companys}
         setCompanys={setCompanys}
+        companyNames={companyNames}
       />
 
       <main>
@@ -44,7 +50,7 @@ const JobsAndFilter = ({
         <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
           {/* title left area */}
           <h1 className="text-3xl font-bold tracking-tight text-secondary hidden sm:block">
-            Jobs(103)
+            Jobs({totalJobsNumber})
           </h1>
 
           {/* sort right area */}
@@ -93,6 +99,7 @@ const JobsAndFilter = ({
               setRange={setRange}
               companys={companys}
               setCompanys={setCompanys}
+              companyNames={companyNames}
             />
 
             {/* jobs grid start here */}
@@ -109,15 +116,13 @@ const JobsAndFilter = ({
                 </div>
               )}
 
-              {/* load more button */}
-              <div className="flex justify-center mt-9">
-                <button
-                  type="button"
-                  className="ml-2 mr-3 rounded-full bg-primary px-3 py-1 text-white"
-                >
-                  Load More
-                </button>
-              </div>
+              {/* paginaion */}
+              <Pagination
+                totalJobsNumber={totalJobsNumber}
+                parPageJob={parPageJob}
+                activePageNumber={activePageNumber}
+                setActivePageNumber={setActivePageNumber}
+              />
             </div>
           </div>
         </section>
