@@ -58,7 +58,6 @@ const RegisterPage = () => {
       const data = {
         companyName,
         email,
-        password,
         websiteUrl,
         address,
         logoUrl,
