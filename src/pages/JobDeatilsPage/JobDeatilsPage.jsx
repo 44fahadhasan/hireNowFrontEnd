@@ -8,11 +8,14 @@ import InputFiled from "../../components/InputFiled";
 import TextArea from "../../components/TextArea";
 import Tost from "../../components/Tost";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useUserProfile from "../../hooks/useUserProfile";
 
 const JobDeatilsPage = () => {
   const [disabled, setDisabled] = useState(false);
 
   const job = useLoaderData();
+
+  const { userProfile: useInfo } = useUserProfile();
 
   const axiosSecure = useAxiosSecure();
 
@@ -138,7 +141,7 @@ const JobDeatilsPage = () => {
           {/* content bottom side of the middle position */}
           <div className="flex flex-col gap-2 lg:col-start-4 lg:gap-4 justify-center">
             <button
-              disabled={disabled}
+              disabled={useInfo?.role === "employer" || disabled}
               onClick={() => document.getElementById("modal").showModal()}
             >
               {(disabled && (
@@ -161,14 +164,15 @@ const JobDeatilsPage = () => {
                 Company Info
               </h2>
               <div className="text-sm font-medium md:gap-4">
-                <img
-                  src={job?.profile?.logoUrl}
-                  alt={job?.profile?.companyName}
-                  width="120"
-                  height="40"
-                  className="aspect-[3/1] overflow-hidden rounded-lg object-contain object-center"
-                />
-
+                <Link to={`/Company/${job?.profile?._id}`}>
+                  <img
+                    src={job?.profile?.logoUrl}
+                    alt={job?.profile?.companyName}
+                    width="120"
+                    height="40"
+                    className="aspect-[3/1] overflow-hidden rounded-lg object-contain object-center"
+                  />
+                </Link>
                 <div className="flex gap-4">
                   <h5>Name:</h5>
                   <address>{job?.profile?.companyName}</address>
