@@ -5,6 +5,9 @@ import JobPost from "../pages/employersPages/JobPost";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage/HomePage";
 import JobDeatilsPage from "../pages/JobDeatilsPage/JobDeatilsPage";
+import MyApplications from "../pages/jobSeeker/MyApplications";
+import Resume from "../pages/jobSeeker/Resume";
+import ReviewAplication from "../pages/jobSeeker/ReviewAplication";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import EmployerRoute from "./EmployerRoute";
@@ -36,6 +39,32 @@ const routes = createBrowserRouter([
         loader: ({ params }) => {
           return fetch(`${import.meta.env.VITE_API_URL}/jobs/${params?.id}`);
         },
+      },
+
+      // secure job seeker routes
+      {
+        path: "My-Applications",
+        element: (
+          <SecureRoute>
+            <MyApplications />
+          </SecureRoute>
+        ),
+      },
+      {
+        path: "Resume",
+        element: (
+          <SecureRoute>
+            <Resume />
+          </SecureRoute>
+        ),
+      },
+      {
+        path: "Review-Aplication/:id",
+        element: (
+          <SecureRoute>
+            <ReviewAplication />
+          </SecureRoute>
+        ),
       },
 
       // secure & employer routes

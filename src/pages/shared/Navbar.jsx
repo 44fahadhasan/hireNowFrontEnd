@@ -9,7 +9,10 @@ import useUserProfile from "../../hooks/useUserProfile";
 
 const publicLists = [{ path: "/", label: "Home" }];
 
-const jobSeekerLists = [{ path: "/My-Applications", label: "My Applications" }];
+const jobSeekerLists = [
+  { path: "/My-Applications", label: "My Applications" },
+  { path: "/Resume", label: "Resume" },
+];
 
 const employerLists = [
   { path: "/Job-Post", label: "Job Post" },
@@ -37,36 +40,67 @@ const Navbar = () => {
       });
   };
 
-  const userProfile = (
-    <div
-      className="tooltip tooltip-left"
-      data-tip={user?.displayName || "Name availablen't"}
-    >
-      <div className="w-10 rounded-full">
-        <img
-          className="object-cover cursor-pointer"
-          alt="Profile"
-          src={
-            user?.photoURL ||
-            "https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg"
-          }
-        />
-      </div>
-    </div>
-  );
-
   const userToggle = (
     <div>
       {user ? (
-        <button
-          onClick={() => {
-            handleLogOut();
-            setToggleMenuIcon(!toggleMenuIcon);
-          }}
-        >
-          <Button lebel={"Logout"} />
-        </button>
+        <div className="dropdown dropdown-end">
+          {/* user img */}
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle avatar"
+          >
+            <div className="w-10 rounded-full">
+              <img
+                className="object-cover"
+                alt="user img"
+                referrerPolicy="no-referrer"
+                src={
+                  user?.photoURL ??
+                  "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                }
+              />
+            </div>
+          </div>
+
+          {/* profile nav */}
+          <ul
+            tabIndex={0}
+            className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 font-medium text-base"
+          >
+            {/* job seeker profile menu list */}
+            {useInfo?.role === "jobSeeker" && (
+              <>
+                {jobSeekerLists?.map(({ path, label }) => (
+                  <li key={label}>
+                    <NavLink
+                      to={path}
+                      className={({ isActive }) =>
+                        isActive ? "text-primary" : "text-secondary"
+                      }
+                    >
+                      {label}
+                    </NavLink>
+                  </li>
+                ))}
+              </>
+            )}
+
+            {/* logout button */}
+            <li>
+              <button
+                onClick={() => {
+                  handleLogOut();
+                  setToggleMenuIcon(!toggleMenuIcon);
+                }}
+              >
+                Logout
+              </button>
+            </li>
+          </ul>
+        </div>
       ) : (
+        // login button
         <Link to="/Login" onClick={() => setToggleMenuIcon(!toggleMenuIcon)}>
           <Button lebel={"Login"} />
         </Link>
@@ -96,23 +130,7 @@ const Navbar = () => {
               </li>
             ))}
 
-            {useInfo?.role === "jobSeeker" && (
-              <>
-                {jobSeekerLists?.map(({ path, label }) => (
-                  <li key={label}>
-                    <NavLink
-                      to={path}
-                      className={({ isActive }) =>
-                        isActive ? "text-primary" : "text-secondary"
-                      }
-                    >
-                      {label}
-                    </NavLink>
-                  </li>
-                ))}
-              </>
-            )}
-
+            {/* employer menu list */}
             {useInfo?.role === "employer" && (
               <>
                 {employerLists?.map(({ path, label }) => (
@@ -134,7 +152,6 @@ const Navbar = () => {
 
         {/* login & logout button for large device */}
         <div className="hidden md:flex items-center space-x-4 ">
-          {user && userProfile}
           {userToggle}
         </div>
 
@@ -208,7 +225,6 @@ const Navbar = () => {
 
         {/* login & logout button for small device */}
         <div className="md:hidden flex justify-center items-center space-x-4 mt-9">
-          {user && userProfile}
           {userToggle}
         </div>
       </div>

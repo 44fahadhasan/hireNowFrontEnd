@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { CiLink } from "react-icons/ci";
 import { Link, useLoaderData } from "react-router-dom";
 import Button from "../../components/Button";
 import Container from "../../components/Container";
-import InputFiled from "../../components/InputFiled";
 import TextArea from "../../components/TextArea";
 import Tost from "../../components/Tost";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -24,10 +22,9 @@ const JobDeatilsPage = () => {
     event.preventDefault();
     const input = event.target;
 
-    const resumeLink = input.resumeLink.value;
     const coverLetter = input.coverLetter.value;
 
-    const applicationData = { resumeLink, coverLetter };
+    const applicationData = { job, coverLetter };
 
     const res = await handleApplicationSubmit(applicationData);
 
@@ -175,7 +172,11 @@ const JobDeatilsPage = () => {
                 </Link>
                 <div className="flex gap-4">
                   <h5>Name:</h5>
-                  <address>{job?.profile?.companyName}</address>
+                  <Link to={`/Company/${job?.profile?._id}`}>
+                    <address className="underline">
+                      {job?.profile?.companyName}
+                    </address>
+                  </Link>
                 </div>
 
                 <div className="flex gap-4">
@@ -211,16 +212,6 @@ const JobDeatilsPage = () => {
             <form onSubmit={handleSubmit}>
               <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-1">
                 <div className="relative block cursor-pointer rounded-lg  p-4 focus:outline-none">
-                  {/* remuse link */}
-                  <InputFiled
-                    label={"Resume Link"}
-                    name={"resumeLink"}
-                    type={"url"}
-                    required={true}
-                    placeholder={"Enter Your Resume Link"}
-                    icon={<CiLink />}
-                  />
-
                   {/* cover letter input */}
                   <TextArea
                     label={"Cover Letter"}
