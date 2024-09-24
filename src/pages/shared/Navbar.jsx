@@ -19,6 +19,10 @@ const employerLists = [
   { path: "/Buy-Post", label: "Buy Post" },
 ];
 
+const employerProfileNavLists = [
+  { path: "/Posted-Jobs", label: "Posted Jobs" },
+];
+
 const Navbar = () => {
   const [toggleMenuIcon, setToggleMenuIcon] = useState(true);
 
@@ -72,6 +76,24 @@ const Navbar = () => {
             {useInfo?.role === "jobSeeker" && (
               <>
                 {jobSeekerLists?.map(({ path, label }) => (
+                  <li key={label}>
+                    <NavLink
+                      to={path}
+                      className={({ isActive }) =>
+                        isActive ? "text-primary" : "text-secondary"
+                      }
+                    >
+                      {label}
+                    </NavLink>
+                  </li>
+                ))}
+              </>
+            )}
+
+            {/* imployer profile menu list */}
+            {useInfo?.role === "employer" && (
+              <>
+                {employerProfileNavLists?.map(({ path, label }) => (
                   <li key={label}>
                     <NavLink
                       to={path}
