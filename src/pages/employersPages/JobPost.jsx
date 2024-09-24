@@ -92,7 +92,7 @@ const JobPost = () => {
     <div className="mt-20">
       <Container>
         <Content
-          title={"Publish a Job"}
+          title={"Publish a New Job"}
           content={
             "Looking to hire the best talent? Publish  your job openings with us and reach thousands of qualified candidates."
           }

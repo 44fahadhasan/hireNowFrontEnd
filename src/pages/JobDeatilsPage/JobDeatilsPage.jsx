@@ -5,6 +5,7 @@ import Button from "../../components/Button";
 import Container from "../../components/Container";
 import TextArea from "../../components/TextArea";
 import Tost from "../../components/Tost";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useUserProfile from "../../hooks/useUserProfile";
 
@@ -15,6 +16,7 @@ const JobDeatilsPage = () => {
 
   const { userProfile: useInfo } = useUserProfile();
 
+  const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
 
   // handle from submit
@@ -31,6 +33,10 @@ const JobDeatilsPage = () => {
     if (res?.data?.acknowledged && res?.status) {
       setDisabled(true);
       toast.success("Successfully was submit");
+
+      // update aplication applied number
+      handleUpdateApplicationNum(job?._id);
+
       // clear input filed
       input.reset();
     } else {
@@ -47,6 +53,11 @@ const JobDeatilsPage = () => {
       });
 
     return res;
+  };
+
+  // handle a single applied application number increment by 1
+  const handleUpdateApplicationNum = (id) => {
+    axiosPublic.patch(`/count-application-number/${id}`);
   };
 
   return (

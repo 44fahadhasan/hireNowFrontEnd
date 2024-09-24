@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
+import AppliedApplications from "../pages/employersPages/AppliedApplications";
 import BuyPost from "../pages/employersPages/BuyPost";
 import JobPost from "../pages/employersPages/JobPost";
 import PostedJobs from "../pages/employersPages/PostedJobs";
+import UpdateJobPost from "../pages/employersPages/UpdateJobPost";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage/HomePage";
 import JobDeatilsPage from "../pages/JobDeatilsPage/JobDeatilsPage";
@@ -80,6 +82,19 @@ const routes = createBrowserRouter([
         ),
       },
       {
+        path: "Update-Job-Post/:id",
+        element: (
+          <SecureRoute>
+            <EmployerRoute>
+              <UpdateJobPost />
+            </EmployerRoute>
+          </SecureRoute>
+        ),
+        loader: ({ params }) => {
+          return fetch(`${import.meta.env.VITE_API_URL}/jobs/${params?.id}`);
+        },
+      },
+      {
         path: "Buy-Post",
         element: (
           <SecureRoute>
@@ -95,6 +110,16 @@ const routes = createBrowserRouter([
           <SecureRoute>
             <EmployerRoute>
               <PostedJobs />
+            </EmployerRoute>
+          </SecureRoute>
+        ),
+      },
+      {
+        path: "Applied-Applications",
+        element: (
+          <SecureRoute>
+            <EmployerRoute>
+              <AppliedApplications />
             </EmployerRoute>
           </SecureRoute>
         ),
