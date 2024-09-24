@@ -27,7 +27,7 @@ const MyApplications = () => {
   });
 
   return (
-    <div className="mt-16 mb-24">
+    <div className="mt-16 pb-28">
       <Container>
         <Content
           title={"All Applications Overview"}
