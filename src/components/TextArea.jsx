@@ -1,4 +1,11 @@
-const TextArea = ({ label, required, name, rows, placeholder }) => {
+const TextArea = ({
+  defaultValue,
+  label,
+  required,
+  name,
+  rows,
+  placeholder,
+}) => {
   return (
     <div className="space-y-1 mt-3 text-base">
       {label && (
@@ -7,6 +14,7 @@ const TextArea = ({ label, required, name, rows, placeholder }) => {
         </label>
       )}
       <textarea
+        defaultValue={defaultValue}
         required={required}
         name={name}
         rows={rows}
