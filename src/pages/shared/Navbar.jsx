@@ -21,7 +21,7 @@ const employerLists = [
 
 const employerProfileNavLists = [
   { path: "/Posted-Jobs", label: "Posted Jobs" },
-  { path: "/Applied-Applications", label: "Applied Applications" },
+  { path: "/Applicant-Applications", label: "Applicant Applications" },
 ];
 
 const Navbar = () => {

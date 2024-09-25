@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
-import AppliedApplications from "../pages/employersPages/AppliedApplications";
+import AllApplicantApplication from "../pages/employersPages/AllApplicantApplication";
 import BuyPost from "../pages/employersPages/BuyPost";
 import JobPost from "../pages/employersPages/JobPost";
 import PostedJobs from "../pages/employersPages/PostedJobs";
@@ -119,7 +119,7 @@ const routes = createBrowserRouter([
         element: (
           <SecureRoute>
             <EmployerRoute>
-              <AppliedApplications />
+              <AllApplicantApplication />
             </EmployerRoute>
           </SecureRoute>
         ),
