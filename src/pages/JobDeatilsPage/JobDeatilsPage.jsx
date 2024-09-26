@@ -25,8 +25,9 @@ const JobDeatilsPage = () => {
     const input = event.target;
 
     const coverLetter = input.coverLetter.value;
+    const applicantName = useInfo?.fullName;
 
-    const applicationData = { job, coverLetter };
+    const applicationData = { job, coverLetter, applicantName };
 
     const res = await handleApplicationSubmit(applicationData);
 

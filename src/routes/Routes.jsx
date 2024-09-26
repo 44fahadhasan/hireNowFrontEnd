@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
 import AllApplicantApplication from "../pages/employersPages/AllApplicantApplication";
+import ApplicantInfo from "../pages/employersPages/ApplicantInfo";
 import BuyPost from "../pages/employersPages/BuyPost";
 import JobPost from "../pages/employersPages/JobPost";
 import PostedJobs from "../pages/employersPages/PostedJobs";
@@ -115,11 +116,21 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: "Applied-Applications",
+        path: "Applicant-Applications",
         element: (
           <SecureRoute>
             <EmployerRoute>
               <AllApplicantApplication />
+            </EmployerRoute>
+          </SecureRoute>
+        ),
+      },
+      {
+        path: "Applicant-Info/:id",
+        element: (
+          <SecureRoute>
+            <EmployerRoute>
+              <ApplicantInfo />
             </EmployerRoute>
           </SecureRoute>
         ),
