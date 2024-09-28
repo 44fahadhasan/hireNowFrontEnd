@@ -24,6 +24,8 @@ const employerProfileNavLists = [
   { path: "/Applicant-Applications", label: "Applicant Applications" },
 ];
 
+const adminLists = [{ path: "/Dashboard", label: "Dashboard" }];
+
 const Navbar = () => {
   const [toggleMenuIcon, setToggleMenuIcon] = useState(true);
 
@@ -157,6 +159,24 @@ const Navbar = () => {
             {useInfo?.role === "employer" && (
               <>
                 {employerLists?.map(({ path, label }) => (
+                  <li key={label}>
+                    <NavLink
+                      to={path}
+                      className={({ isActive }) =>
+                        isActive ? "text-primary" : "text-secondary"
+                      }
+                    >
+                      {label}
+                    </NavLink>
+                  </li>
+                ))}
+              </>
+            )}
+
+            {/* admin menu list */}
+            {useInfo?.role === "admin" && (
+              <>
+                {adminLists?.map(({ path, label }) => (
                   <li key={label}>
                     <NavLink
                       to={path}

@@ -1,5 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
+import DashboardLayout from "../layouts/DashboardLayout";
 import RootLayout from "../layouts/RootLayout";
+import Applications from "../pages/admin/Applications";
+import DashboardHome from "../pages/admin/DashboardHome";
+import JobListings from "../pages/admin/JobListings";
+import Users from "../pages/admin/Users";
 import AllApplicantApplication from "../pages/employersPages/AllApplicantApplication";
 import ApplicantInfo from "../pages/employersPages/ApplicantInfo";
 import BuyPost from "../pages/employersPages/BuyPost";
@@ -14,6 +19,7 @@ import Resume from "../pages/jobSeeker/Resume";
 import ReviewAplication from "../pages/jobSeeker/ReviewAplication";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import AdminRoute from "./AdminRoute";
 import EmployerRoute from "./EmployerRoute";
 import SecureRoute from "./SecureRoute";
 
@@ -132,6 +138,54 @@ const routes = createBrowserRouter([
             <EmployerRoute>
               <ApplicantInfo />
             </EmployerRoute>
+          </SecureRoute>
+        ),
+      },
+    ],
+  },
+
+  // dashboard layout routes
+  {
+    path: "Dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <SecureRoute>
+            <AdminRoute>
+              <DashboardHome />
+            </AdminRoute>
+          </SecureRoute>
+        ),
+      },
+      {
+        path: "Users",
+        element: (
+          <SecureRoute>
+            <AdminRoute>
+              <Users />
+            </AdminRoute>
+          </SecureRoute>
+        ),
+      },
+      {
+        path: "Job-Listings",
+        element: (
+          <SecureRoute>
+            <AdminRoute>
+              <JobListings />
+            </AdminRoute>
+          </SecureRoute>
+        ),
+      },
+      {
+        path: "Applications",
+        element: (
+          <SecureRoute>
+            <AdminRoute>
+              <Applications />
+            </AdminRoute>
           </SecureRoute>
         ),
       },
